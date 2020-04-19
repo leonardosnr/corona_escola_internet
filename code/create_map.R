@@ -51,10 +51,14 @@ leaflet::leaflet(data = db.map[, ]) %>%
   addProviderTiles(providers$Esri.WorldStreetMap) %>% 
   addCircleMarkers(radius = 7, 
                    color = ~pal(colors),
-                   fillOpacity = .9, popup = ~popup) %>% 
+                   fillOpacity = .9, popup = ~popup, group = ~name_provider) %>% 
   addLegend(
     position = "bottomright",
     colors = c("#d7191c", "#fec44f", "#1a9641"),
     labels = c("Menos de 50%", "Entre 50 e 75%", "Mais do que 75%"), opacity = 1,
     title = "Percentual de estudantes <br/> com computador em casa"
+  ) %>% 
+  addLayersControl(
+    overlayGroups = ~name_provider,
+    options = layersControlOptions(collapsed = FALSE)
   )
